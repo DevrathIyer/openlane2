@@ -28,15 +28,14 @@
 #  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 #  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-import os
-import sys
 import json
+import os
 import shutil
+import sys
 
 import click
-
-from ys_common import ys
 from construct_abc_script import ABCScriptCreator
+from ys_common import ys
 
 
 def openlane_proc(d: ys.Design, report_dir: str):
@@ -349,6 +348,8 @@ def synthesize(
 
     run_strategy(d)
 
+    # Had to remove this step as it overwrote stat directory with flattened design
+    """
     if config["SYNTH_NO_FLAT"]:
         # Resynthesize, flattening
         d_flat = ys.Design()
@@ -362,6 +363,8 @@ def synthesize(
             *(["-booth"] if config["SYNTH_MUL_BOOTH"] else []),
         )
         run_strategy(d_flat)
+
+    """
 
 
 if __name__ == "__main__":
